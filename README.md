@@ -68,6 +68,12 @@ Launch a (migrated) Postgres database via Docker:
 ./scripts/init_db.sh
 ```
 
+Launch a Redis instance via Docker:
+
+```bash
+./scripts/init_redis.sh
+```
+
 Launch `cargo`:
 
 ```bash
@@ -80,6 +86,12 @@ Launch a (migrated) Postgres database via Docker:
 
 ```bash
 ./scripts/init_db.sh
+```
+
+Launch a Redis instance via Docker:
+
+```bash
+./scripts/init_redis.sh
 ```
 
 Launch `cargo`:
