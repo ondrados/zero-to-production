@@ -18,6 +18,7 @@ use secrecy::{ExposeSecret, Secret};
 use sqlx::postgres::PgPoolOptions;
 use sqlx::PgPool;
 use std::net::TcpListener;
+use anyhow::Context;
 use tracing_actix_web::TracingLogger;
 
 pub struct Application {
@@ -80,7 +81,7 @@ async fn run(
     let secret_key = Key::from(hmac_secret.expose_secret().as_bytes());
     let message_store = CookieMessageStore::builder(secret_key.clone()).build();
     let message_framework = FlashMessagesFramework::builder(message_store).build();
-    let redis_store = RedisSessionStore::new(redis_uri.expose_secret()).await?;
+    let redis_store = RedisSessionStore::new(redis_uri.expose_secret()).await.context("Failed to init RedisSessionStore")?;
     let server = HttpServer::new(move || {
         App::new()
             .wrap(message_framework.clone())
